@@ -1,0 +1,17 @@
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Local virtual environments
+.venv/
+venv/
+
+# Generated reports can contain investigation notes.
+reports/*
+!reports/.gitkeep
+!reports/sample-alert-output.txt
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/

@@ -1,0 +1,15 @@
+Aug 18 09:00:01 ubuntu-lab sshd[1201]: Accepted password for thiago from 192.0.2.10 port 52210 ssh2
+Aug 18 09:01:14 ubuntu-lab sshd[1207]: Failed password for invalid user admin from 203.0.113.50 port 41001 ssh2
+Aug 18 09:01:18 ubuntu-lab sshd[1208]: Failed password for invalid user admin from 203.0.113.50 port 41002 ssh2
+Aug 18 09:01:22 ubuntu-lab sshd[1209]: Failed password for invalid user admin from 203.0.113.50 port 41003 ssh2
+Aug 18 09:01:25 ubuntu-lab sshd[1210]: Failed password for invalid user admin from 203.0.113.50 port 41004 ssh2
+Aug 18 09:01:29 ubuntu-lab sshd[1211]: Failed password for invalid user admin from 203.0.113.50 port 41005 ssh2
+Aug 18 09:01:33 ubuntu-lab sshd[1212]: Failed password for invalid user admin from 203.0.113.50 port 41006 ssh2
+Aug 18 09:02:02 ubuntu-lab sshd[1221]: Failed password for root from 203.0.113.50 port 41007 ssh2
+Aug 18 09:02:11 ubuntu-lab sshd[1222]: Failed password for root from 203.0.113.50 port 41008 ssh2
+Aug 18 09:02:19 ubuntu-lab sshd[1223]: Failed password for root from 203.0.113.50 port 41009 ssh2
+Aug 18 09:02:27 ubuntu-lab sshd[1224]: Failed password for root from 203.0.113.50 port 41010 ssh2
+Aug 18 09:06:45 ubuntu-lab sshd[1301]: Failed password for deploy from 198.51.100.23 port 53010 ssh2
+Aug 18 09:07:02 ubuntu-lab sshd[1302]: Failed password for deploy from 198.51.100.23 port 53011 ssh2
+Aug 18 09:08:10 ubuntu-lab sshd[1310]: Accepted publickey for analyst from 192.0.2.20 port 60221 ssh2
+Aug 18 09:10:30 ubuntu-lab sudo: thiago : TTY=pts/0 ; PWD=/home/thiago ; USER=root ; COMMAND=/usr/bin/apt update

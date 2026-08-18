@@ -1,0 +1,62 @@
+================================================================
+ Log Analysis Mini SIEM
+ Beginner Python Detection Report
+================================================================
+Auth log: sample_logs/auth.log
+Web log:  sample_logs/web_access.log
+
+== Alerts ==
+[HIGH] Possible brute-force activity from 203.0.113.50
+       Evidence: 10 failed login attempt(s)
+       Recommendation: Review authentication logs, block the IP if malicious, and consider disabling password-based SSH login.
+
+[HIGH] Sensitive path requested: /.env
+       Evidence: 203.0.113.50 used GET and received HTTP 404
+       Recommendation: Confirm whether this endpoint should be public. Restrict, monitor, or remove exposed sensitive paths.
+
+[HIGH] Sensitive path requested: /config
+       Evidence: 203.0.113.50 used GET and received HTTP 404
+       Recommendation: Confirm whether this endpoint should be public. Restrict, monitor, or remove exposed sensitive paths.
+
+[WARN] Suspicious IP observed: 192.0.2.44
+       Evidence: 2 matching log event(s)
+       Recommendation: Compare this IP against threat intelligence, firewall logs, and business context before taking action.
+
+[WARN] Suspicious IP observed: 198.51.100.23
+       Evidence: 12 matching log event(s)
+       Recommendation: Compare this IP against threat intelligence, firewall logs, and business context before taking action.
+
+[WARN] Suspicious IP observed: 203.0.113.50
+       Evidence: 14 matching log event(s)
+       Recommendation: Compare this IP against threat intelligence, firewall logs, and business context before taking action.
+
+[WARN] Repeated 404 errors from 198.51.100.23
+       Evidence: 10 HTTP 404 response(s)
+       Recommendation: Review requested paths for scanning, directory brute forcing, or vulnerability probing.
+
+[WARN] Sensitive path requested: /admin
+       Evidence: 203.0.113.50 used GET and received HTTP 403
+       Recommendation: Confirm whether this endpoint should be public. Restrict, monitor, or remove exposed sensitive paths.
+
+[WARN] Sensitive path requested: /login
+       Evidence: 203.0.113.50 used POST and received HTTP 401
+       Recommendation: Confirm whether this endpoint should be public. Restrict, monitor, or remove exposed sensitive paths.
+
+[WARN] Sensitive path requested: /wp-login.php
+       Evidence: 198.51.100.23 used GET and received HTTP 404
+       Recommendation: Confirm whether this endpoint should be public. Restrict, monitor, or remove exposed sensitive paths.
+
+[WARN] Sensitive path requested: /login
+       Evidence: 192.0.2.44 used GET and received HTTP 200
+       Recommendation: Confirm whether this endpoint should be public. Restrict, monitor, or remove exposed sensitive paths.
+
+[WARN] Sensitive path requested: /login
+       Evidence: 192.0.2.44 used POST and received HTTP 401
+       Recommendation: Confirm whether this endpoint should be public. Restrict, monitor, or remove exposed sensitive paths.
+
+== Summary ==
+Log lines analyzed: 35
+Alerts generated:   12
+INFO alerts:        0
+WARN alerts:        9
+HIGH alerts:        3
