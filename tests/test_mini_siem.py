@@ -54,6 +54,16 @@ class MiniSiemTests(unittest.TestCase):
         self.assertEqual(len(alerts), 1)
         self.assertEqual(alerts[0].severity, "WARN")
 
+    def test_repeated_404s_stays_quiet_below_threshold(self):
+        web_requests = [
+            {"ip": "198.51.100.23", "method": "GET", "path": f"/missing-{number}", "status": "404", "raw": ""}
+            for number in range(7)
+        ]
+
+        alerts = detect_repeated_404s(web_requests)
+
+        self.assertEqual(alerts, [])
+
     def test_detect_sensitive_high_path(self):
         web_requests = [
             {"ip": "203.0.113.50", "method": "GET", "path": "/.env", "status": "404", "raw": ""}

@@ -223,6 +223,10 @@ It is not intended for:
 - Malware detection
 - Full SIEM replacement
 
+## What I Struggled With
+
+The hardest part was keeping the detections useful without turning every weird log line into an alert. I kept the thresholds simple and easy to explain because this project is meant to show detection thinking, not pretend to replace a real SIEM.
+
 ## Future Improvements
 
 - Add JSON alert output

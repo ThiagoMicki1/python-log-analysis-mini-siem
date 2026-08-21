@@ -291,7 +291,7 @@ def main() -> None:
         print(report_text, end="")
 
         args.output.parent.mkdir(parents=True, exist_ok=True)
-        args.output.write_text(report_text, encoding="utf-8")
+        args.output.write_text(report_text, encoding="utf-8", newline="\n")
         print(f"\n[INFO] Report saved to: {args.output}")
     else:
         run_analysis(args.auth_log, args.web_log)
