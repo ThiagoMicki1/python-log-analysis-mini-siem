@@ -23,6 +23,7 @@ This project uses sample logs only. It does not collect, transmit, or analyze pr
 - Parses sample SSH authentication logs
 - Parses sample web access logs
 - Supports optional report export with `--output`
+- Supports optional JSON alert export with `--json-output`
 - Detects repeated failed login attempts
 - Detects possible brute-force behavior
 - Detects suspicious IP addresses from a local watchlist
@@ -52,6 +53,7 @@ python-log-analysis-mini-siem/
 │   └── web_access.log
 ├── reports/
 │   ├── .gitkeep
+│   ├── sample-alerts.json
 │   └── sample-alert-output.txt
 ├── tests/
 │   └── test_mini_siem.py
@@ -102,6 +104,12 @@ Save a copy of the terminal report:
 
 ```bash
 python mini_siem.py --output reports/local-alert-report.txt
+```
+
+Save alerts as JSON:
+
+```bash
+python mini_siem.py --json-output reports/local-alerts.json
 ```
 
 View command-line help:
@@ -229,7 +237,6 @@ The hardest part was keeping the detections useful without turning every weird l
 
 ## Future Improvements
 
-- Add JSON alert output
 - Add CSV report export
 - Add timestamp parsing and time-window based detections
 - Add command-line threshold options

@@ -11,10 +11,11 @@ from __future__ import annotations
 
 import argparse
 import io
+import json
 import re
 from contextlib import redirect_stdout
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from pathlib import Path
 
 
@@ -223,7 +224,21 @@ def print_summary(total_lines: int, alerts: list[Alert]) -> None:
     print(f"HIGH alerts:        {severity_counts['HIGH']}")
 
 
-def run_analysis(auth_log: Path, web_log: Path) -> None:
+def build_json_report(total_lines: int, alerts: list[Alert]) -> dict:
+    severity_counts = Counter(alert.severity for alert in alerts)
+    return {
+        "summary": {
+            "log_lines_analyzed": total_lines,
+            "alerts_generated": len(alerts),
+            "info_alerts": severity_counts["INFO"],
+            "warn_alerts": severity_counts["WARN"],
+            "high_alerts": severity_counts["HIGH"],
+        },
+        "alerts": [asdict(alert) for alert in alerts],
+    }
+
+
+def run_analysis(auth_log: Path, web_log: Path) -> tuple[int, list[Alert]]:
     auth_lines = read_log_lines(auth_log)
     web_lines = read_log_lines(web_log)
 
@@ -252,7 +267,9 @@ def run_analysis(auth_log: Path, web_log: Path) -> None:
         print("[INFO] No alerts generated from the provided sample logs.")
         print()
 
-    print_summary(len(auth_lines) + len(web_lines), alerts)
+    total_lines = len(auth_lines) + len(web_lines)
+    print_summary(total_lines, alerts)
+    return total_lines, alerts
 
 
 def parse_args() -> argparse.Namespace:
@@ -276,6 +293,11 @@ def parse_args() -> argparse.Namespace:
         type=Path,
         help="Optional path to save a copy of the alert report.",
     )
+    parser.add_argument(
+        "--json-output",
+        type=Path,
+        help="Optional path to save alerts as JSON.",
+    )
     return parser.parse_args()
 
 
@@ -285,7 +307,7 @@ def main() -> None:
     if args.output:
         report_buffer = io.StringIO()
         with redirect_stdout(report_buffer):
-            run_analysis(args.auth_log, args.web_log)
+            total_lines, alerts = run_analysis(args.auth_log, args.web_log)
 
         report_text = report_buffer.getvalue()
         print(report_text, end="")
@@ -294,7 +316,16 @@ def main() -> None:
         args.output.write_text(report_text, encoding="utf-8", newline="\n")
         print(f"\n[INFO] Report saved to: {args.output}")
     else:
-        run_analysis(args.auth_log, args.web_log)
+        total_lines, alerts = run_analysis(args.auth_log, args.web_log)
+
+    if args.json_output:
+        args.json_output.parent.mkdir(parents=True, exist_ok=True)
+        args.json_output.write_text(
+            json.dumps(build_json_report(total_lines, alerts), indent=2),
+            encoding="utf-8",
+            newline="\n",
+        )
+        print(f"[INFO] JSON report saved to: {args.json_output}")
 
 
 if __name__ == "__main__":

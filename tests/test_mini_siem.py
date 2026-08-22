@@ -1,6 +1,8 @@
 import unittest
 
 from mini_siem import (
+    Alert,
+    build_json_report,
     detect_repeated_404s,
     detect_repeated_failed_logins,
     detect_sensitive_paths,
@@ -73,6 +75,15 @@ class MiniSiemTests(unittest.TestCase):
 
         self.assertEqual(len(alerts), 1)
         self.assertEqual(alerts[0].severity, "HIGH")
+
+    def test_build_json_report_keeps_alert_fields(self):
+        alerts = [Alert("HIGH", "Demo alert", "sample evidence", "sample recommendation")]
+
+        report = build_json_report(3, alerts)
+
+        self.assertEqual(report["summary"]["log_lines_analyzed"], 3)
+        self.assertEqual(report["summary"]["high_alerts"], 1)
+        self.assertEqual(report["alerts"][0]["title"], "Demo alert")
 
 
 if __name__ == "__main__":

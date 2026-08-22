@@ -10,6 +10,7 @@ venv/
 reports/*
 !reports/.gitkeep
 !reports/sample-alert-output.txt
+!reports/sample-alerts.json
 
 # OS/editor noise
 .DS_Store
