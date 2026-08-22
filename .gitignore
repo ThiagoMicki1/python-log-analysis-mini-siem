@@ -6,6 +6,12 @@ __pycache__/
 .venv/
 venv/
 
+# Local secrets and keys
+.env
+*.env
+*.pem
+*.key
+
 # Generated reports can contain investigation notes.
 reports/*
 !reports/.gitkeep
